@@ -37,7 +37,7 @@ export class GifsComponent implements OnInit{
   
   copyToClipboard(text: string, event: Event) {
     event.stopPropagation();
-    this.messageService.add({  key: 'tc', severity: 'success', summary: 'Copied', detail:  `Gif name : ${text}` });
+    this.messageService.add({  key: 'tc' + text, severity: 'success', summary: 'Copied', detail:  `Gif name : ${text}` });
     const selBox = document.createElement('textarea');
     selBox.style.position = 'fixed';
     selBox.style.left = '0';
@@ -49,7 +49,6 @@ export class GifsComponent implements OnInit{
     selBox.select();
     document.execCommand('copy');
     document.body.removeChild(selBox);
-    
   }
 
 

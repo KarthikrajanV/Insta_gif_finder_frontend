@@ -1,16 +1,32 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { GifsComponent } from './gifs/gifs.component';
+import { FileUploadModule } from 'primeng/fileupload';
+import {AngularFireModule} from '@angular/fire/compat';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage'
+import { environment } from '../environments/environment.development';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AdminPanelComponent,
+    GifsComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    FileUploadModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireStorageModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

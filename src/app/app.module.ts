@@ -11,6 +11,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage'
 import { environment } from '../environments/environment.development';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { HttpClientModule } from '@angular/common/http';
     FileUploadModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireStorageModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastModule
   ],
   providers: [],
   bootstrap: [AppComponent]

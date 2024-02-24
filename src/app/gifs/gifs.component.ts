@@ -2,19 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { Gif } from '../../model/gif-interface';
 import { GifService } from '../../service/gif.service';
 import { initFlowbite } from 'flowbite';
-
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-gifs',
   templateUrl: './gifs.component.html',
-  styleUrl: './gifs.component.css'
+  styleUrl: './gifs.component.css',
+  providers: [MessageService]
 })
 export class GifsComponent implements OnInit{
   
   gifs?: Gif[]
   search?:string;
   
-  constructor( private gifService : GifService){}
+  constructor( private gifService : GifService,private messageService: MessageService){}
 
   ngOnInit(): void {
     this.getAllGifs();
@@ -46,6 +47,7 @@ export class GifsComponent implements OnInit{
     selBox.select();
     document.execCommand('copy');
     document.body.removeChild(selBox);
+    this.messageService.add({ severity: 'success', summary: 'Copied', detail:  `Gif name : ${text}` });
   }
 
 

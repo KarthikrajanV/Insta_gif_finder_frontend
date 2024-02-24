@@ -33,8 +33,8 @@
           <p class="mb-2 text-sm font-semibold tracking-tight text-gray-900 dark:text-white">Gif name:  <span class="font-normal">{{ gif.gifName }}</span></p>
        
         <!-- <p class="mb-3 text-gray-700 dark:text-gray-400">{{ gif.name }}</p> -->
-        <p-toast></p-toast>
-        <button class="inline-flex items-center px-1 py-1 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer" (click)="copyToClipboard(gif.gifName)">
+        <p-toast position="top-center" key="tc"></p-toast>
+        <button pButton pRipple class="p-button-success inline-flex items-center px-1 py-1 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer" (click)="copyToClipboard(gif.gifName, $event)">
           Copy name <img class="pl-1 pb-[2px]" src="../../assets/copy.png" alt="">
 
         </button>

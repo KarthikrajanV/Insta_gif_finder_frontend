@@ -12,14 +12,24 @@ import { MessageService } from 'primeng/api';
 })
 export class GifsComponent implements OnInit{
   
-  gifs?: Gif[]
+  gifs: Gif[] = []
   search?:string;
   
   constructor( private gifService : GifService,private messageService: MessageService){}
 
   ngOnInit(): void {
+    console.log(!this.gifs);
+    if(!this.gifs){
+      this.temp = true
+    }
+    
     this.getAllGifs();
-    initFlowbite();    
+    initFlowbite();  
+    setTimeout(() => {
+     
+      
+      
+    }, 1000);  
   }
 
   getAllGifs():any{
@@ -51,6 +61,10 @@ export class GifsComponent implements OnInit{
     document.execCommand('copy');
     document.body.removeChild(selBox);
   }
+
+  temp:boolean= false;
+
+
 
 
   searchGif(){

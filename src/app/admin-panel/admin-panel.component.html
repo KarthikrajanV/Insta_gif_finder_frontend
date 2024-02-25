@@ -1,6 +1,8 @@
+<div *ngIf="adminAuthService.isAuthenticated$ | async;else unauthorized">
+
 <div class="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
   <div class="max-w-md w-full space-y-8">
-    <h1 class="text-gradient font-bold text-4xl text-center">Insta gif admin panel</h1>
+    <h1 class="text-gradient font-extrabold text-4xl text-center">Insta gif admin panel</h1>
     <form id="upload-form" class="bg-white shadow-md rounded px-4 pt-6 pb-8 mb-4">
       <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
@@ -28,6 +30,17 @@
           <img [src]="imageUrl" class="max-w-full max-h-full w-auto h-auto pl-2 pt-2">
         </div>
       </div>
+
+      <!-- Upload animation -->
+      <div class="load-wrapp" *ngIf="image && !imageLink">
+        <div class="load-3 flex">
+          <p class="text-sm font-bold text-gray-600">Uploading image to Firebase...</p>
+          <div class="line ml-2"></div>
+          <div class="line"></div>
+          <div class="line "></div>
+        </div>
+      </div>
+
       <div class="flex items-center justify-center">
         <button *ngIf="imageLink" id="upload-button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" (click)="uploadGif()" >
           Upload
@@ -36,4 +49,16 @@
     </form>
   </div>
 </div>
+
+</div>
+
+<ng-template #unauthorized>
+  <div class="min-h-screen flex items-center justify-center bg-gray-100 px-4 ">
+    <div class="max-w-md w-full space-y-8 text-center mb-32">
+      <img src="../../assets/warning.png" class="mx-auto w-44 lg:w-72">
+      <h1 class="lg:text-5xl text-3xl text-red-500 font-bold mb-1">Access Denied</h1>
+      <p class="text-gray-700 lg:text-xl">You are not authorized to access this page.</p>
+    </div>
+  </div>
+</ng-template>
 

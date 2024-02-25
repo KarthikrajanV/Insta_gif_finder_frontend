@@ -1,21 +1,47 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage'
-import { environment } from '../../environments/environment.development';
+
+import { AdminAuthService } from '../../service/admin-auth.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-admin-panel',
   templateUrl: './admin-panel.component.html',
   styleUrl: './admin-panel.component.css'
 })
-export class AdminPanelComponent {
+export class AdminPanelComponent implements OnInit{
 
   gifKeyword :string='';
   gifName :string = ''
   imageLink:string='';
-  apiUrl :string = environment.apiUrl;
+  apiUrl :string = environment.adminPass;
+  adminKey: string = '';
 
-  constructor(private fireStorage : AngularFireStorage, private http:HttpClient){}
+  constructor(private fireStorage : AngularFireStorage, private http:HttpClient, public adminAuthService: AdminAuthService){}
+
+  ngOnInit() {
+    this.adminAuthService.logout()
+    this.adminAuthService.isAuthenticated$.subscribe((authenticated) => {
+      if (!authenticated) {
+        this.showAdminPrompt();
+      }
+    });
+  }
+
+  showAdminPrompt() {
+    const adminKey = prompt('Enter admin key:');
+    if (adminKey) {
+      const isAuthenticated = this.adminAuthService.authenticateAdmin(adminKey);
+      if (!isAuthenticated) {
+        alert('Invalid admin key. Access denied.');
+      }
+    } else {
+      alert('Access denied.');
+    }
+  }
+  
+
     // blackbox
 
   image: File | null = null;

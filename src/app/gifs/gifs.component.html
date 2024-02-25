@@ -9,7 +9,7 @@
  </header>
 
 <!-- searchbar -->
-<div class="grid grid-cols-2 gap-4 sm:grid-cols-2 lg:grid-cols-3 justify-center py-1 px-5 mt-3">
+<div class="grid grid-cols-2 gap-4 sm:grid-cols-2 lg:grid-cols-3 justify-center mt-2 py-1 px-5 mt-">
 
     <div class="col-span-2 lg:col-span-1">
       <form class="relative" (submit)="searchGif()">
@@ -27,7 +27,7 @@
 <!-- cards -->
 <div class="grid grid-cols-2 gap-4 sm:grid-cols-2 lg:grid-cols-3 justify-center px-5 py-2">
   <!-- Skeleton Loader -->
-  <ng-container *ngIf="!gifs; else content">
+  <ng-container *ngIf="!gifs.length; else content">
     <div *ngFor="let item of [0, 1, 2, 3]; let i = index" class="max-w-md bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 overflow-hidden animate-pulse">
       <div class="w-full h-48 bg-gray-300 rounded-t-lg"></div>
       <div class="px-2 py-1">

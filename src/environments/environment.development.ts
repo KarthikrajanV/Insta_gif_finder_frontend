@@ -11,5 +11,6 @@ export const environment = {
       ,
 
   //  apiUrl : 'http://localhost:3001/api/gif'
-   apiUrl : 'https://insta-gif-finder-backend.onrender.com/api/gif'
+//    apiUrl : 'https://insta-gif-finder-backend.onrender.com/api/gif'
+      apiUrl :  'https://insta-gif-finder-backend.vercel.app/api/gif'
 };

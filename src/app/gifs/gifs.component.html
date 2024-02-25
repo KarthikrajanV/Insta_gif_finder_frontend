@@ -13,8 +13,8 @@
 
     <div class="col-span-2 lg:col-span-1">
       <form class="relative" (submit)="searchGif()">
-        <input type="text" id="search" [(ngModel)]="search" name="search" class="block w-full py-2 pl-3 pr-10 border border-gray-300 rounded-lg bg-white dark:bg-gray-800 dark:text-white dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600 relative" placeholder="Enter keywords to search. Eg:sus, dark" #searchInput>
-        <button type="submit" class="absolute top-0 right-0 ml-3 py-[11px] px-2 text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-600 hover:cursor-pointer">
+        <input type="text" id="search" [(ngModel)]="search" name="search" class="block text-xs w-full py-2 pl-2 pr-10 border border-gray-300 rounded-lg bg-white dark:bg-gray-800 dark:text-white dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600 relative" placeholder="Enter keywords to search. Eg:sus, dark" #searchInput>
+        <button type="submit" class="absolute top-0 right-0 ml-3 py-[7px] px-2 text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-600 hover:cursor-pointer">
           <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
@@ -26,21 +26,40 @@
 
 <!-- cards -->
 <div class="grid grid-cols-2 gap-4 sm:grid-cols-2 lg:grid-cols-3 justify-center px-5 py-2">
-    <div class="max-w-md bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 overflow-hidden" *ngFor="let gif of gifs">
-    <img class="w-full h-48 object-cover rounded-t-lg" [src]="gif.image" alt="{{ gif.gifName }}">
-     
+  <!-- Skeleton Loader -->
+  <ng-container *ngIf="!gifs; else content">
+    <div *ngFor="let item of [0, 1, 2, 3]; let i = index" class="max-w-md bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 overflow-hidden animate-pulse">
+      <div class="w-full h-48 bg-gray-300 rounded-t-lg"></div>
       <div class="px-2 py-1">
-          <p class="mb-2 text-sm font-semibold tracking-tight text-gray-900 dark:text-white">Gif name:  <span class="font-normal">{{ gif.gifName }}</span></p>
-       
-        <!-- <p class="mb-3 text-gray-700 dark:text-gray-400">{{ gif.name }}</p> -->
-      <div class="card">
-        <p-toast position="top-center" [key]="'tc' + gif.gifName"></p-toast>
-        <button pButton pRipple class="p-button-success inline-flex items-center px-1 py-1 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer" (click)="copyToClipboard(gif.gifName, $event)">
-          Copy name <img class="pl-1 pb-[2px]" src="../../assets/copy.png" alt="">
-        </button>
-      </div>
-
-
+        <p class="mb-2 text-sm font-semibold tracking-tight text-gray-900 dark:text-white">Gif name: <br> <span class="font-normal rounded-sm bg-gray-400 h-3 inline-block w-3/4 ml-[1px] mt-1"></span></p>
+        <div class="card">
+          <div class="w-10">
+            <!-- You can customize the skeleton loader for the toast here -->
+            <!-- <div class="bg-gray-400 h-4 w-10"></div> -->
+          </div>
+          <button pButton pRipple class="p-button-success inline-flex items-center px-1 py-1 text-sm font-medium text-white bg-gray-500 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer">
+            Copy name <img class="pl-1 pb-[2px]" src="../../assets/copy.png" alt="">
+          </button>
+        </div>
       </div>
     </div>
-  </div>
+  </ng-container>
+
+  <!-- Actual Content -->
+  <ng-template #content>
+    <div class="max-w-md bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 overflow-hidden" *ngFor="let gif of gifs">
+      <img class="w-full h-48 object-cover rounded-t-lg" [src]="gif.image" alt="{{ gif.gifName }}">
+      <div class="px-2 py-1">
+        <p class="mb-2 text-sm font-semibold tracking-tight text-gray-900 dark:text-white">Gif name: <br> <span class="font-normal">{{ gif.gifName }}</span></p>
+        <div class="card">
+          <div class="w-10">
+            <p-toast class="w-10" position="top-center" [key]="'tc' + gif.gifName" [styleClass]="'p-toast-sm'"></p-toast>
+          </div>
+          <button pButton pRipple class="p-button-success inline-flex items-center px-1 py-1 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer" (click)="copyToClipboard(gif.gifName, $event)">
+            Copy name <img class="pl-1 pb-[2px]" src="../../assets/copy.png" alt="">
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

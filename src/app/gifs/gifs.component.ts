@@ -14,6 +14,7 @@ export class GifsComponent implements OnInit{
   
   gifs?: Gif[]
   search?:string;
+  placeArr:number[] =[1,2,3,4]
   
   constructor( private gifService : GifService,private messageService: MessageService){}
 

@@ -31,7 +31,7 @@
         </div>
       </div>
 
-      <!-- Upload animation -->
+      <!--Firebase Upload animation -->
       <div class="load-wrapp" *ngIf="image && !imageLink">
         <div class="load-3 flex">
           <p class="text-sm font-bold text-gray-600">Uploading image to Firebase...</p>
@@ -42,10 +42,31 @@
       </div>
 
       <div class="flex items-center justify-center">
-        <button *ngIf="imageLink" id="upload-button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" (click)="uploadGif()" >
-          Upload
-        </button>
+        <button *ngIf="imageLink"
+        id="upload-button"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        type="button"
+        (click)="uploadGif()"
+        [disabled]="uploadClicked">
+  Upload
+</button>
+</div> 
+
+
+        <br>
+
+      <!--mongo upload loader -->
+      <div class="load-wrapp mx-auto" *ngIf="uploadClicked">
+        <div class="load-3 flex">
+          <p class="text-sm font-bold text-gray-600">Uploading to Database...</p>
+          <div class="line ml-2"></div>
+          <div class="line"></div>
+          <div class="line "></div>
+        </div>
       </div>
+
+
+   
     </form>
   </div>
 </div>

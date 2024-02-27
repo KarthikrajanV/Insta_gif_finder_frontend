@@ -15,13 +15,14 @@ export class AdminPanelComponent implements OnInit{
   gifKeyword :string='';
   gifName :string = ''
   imageLink:string='';
-  apiUrl :string = environment.adminPass;
+  apiUrl :string = environment.apiUrl;
   adminKey: string = '';
+  uploadClicked :boolean = false;
 
   constructor(private fireStorage : AngularFireStorage, private http:HttpClient, public adminAuthService: AdminAuthService){}
 
   ngOnInit() {
-    this.adminAuthService.logout()
+    // this.adminAuthService.logout()
     this.adminAuthService.isAuthenticated$.subscribe((authenticated) => {
       if (!authenticated) {
         this.showAdminPrompt();
@@ -72,18 +73,20 @@ export class AdminPanelComponent implements OnInit{
   }
 
   async uploadGif(){
+    this.uploadClicked = true;
     this.http.post(this.apiUrl,{name:this.gifKeyword, gifName:this.gifName, image:this.imageLink})
     .subscribe(
       (res:any)=>{
-      console.log(res.message);
+      console.log(res);
       this.gifKeyword=''
       this.gifName=''
       this.imageLink=''
       this.handleRemoveImage();
+      this.uploadClicked=false;
     },
     (err:any)=>{
       console.log(err.message);
-    }
+    },
     
     )
   }
